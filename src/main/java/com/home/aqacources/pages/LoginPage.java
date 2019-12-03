@@ -1,9 +1,10 @@
 package com.home.aqacources.pages;
 
-import com.home.aqacources.tests.BaseTest;
+import com.home.aqacources.base.BaseTest;
 import junit.framework.TestCase;
 import org.openqa.selenium.By;
 
+/** Login page */
 public class LoginPage extends AbstractPage {
     private String USERNAME_ID = "email";
     private String USERNAME = "testtest123@gmail.com";
@@ -13,19 +14,28 @@ public class LoginPage extends AbstractPage {
 
     /**
      * Constructor
+     *
      * @param testClass
      */
     public LoginPage(BaseTest testClass) {
         super(testClass);
     }
 
+    /**
+     * Logins to website
+     *
+     * @return MyAccountPage
+     */
     public MyAccountPage login() {
-        testClass.fillFieldById(USERNAME_ID, USERNAME);
-        testClass.fillFieldById(PASSWORD_ID, PASSWORD);
-        testClass.clickById(SIGN_IN_BUTTON_ID);
+        super.fillFieldById(USERNAME_ID, USERNAME);
+        super.fillFieldById(PASSWORD_ID, PASSWORD);
+        super.clickById(SIGN_IN_BUTTON_ID);
         return new MyAccountPage(testClass);
     }
+
+    /** Checks if current page is a Login page */
     public void verifyPage() {
-        if (!(testClass.getDriver().findElements(By.id(USERNAME_ID)).size() > 0)) TestCase.fail("This is not a login page");
+        if (!(testClass.getDriver().findElements(By.id(USERNAME_ID)).size() > 0))
+            TestCase.fail("This is not a login page");
     }
 }

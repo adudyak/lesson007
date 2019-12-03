@@ -1,10 +1,9 @@
-package com.home.aqacources.tests;
+package com.home.aqacources.base;
 
 import com.home.aqacources.pages.HomePage;
+import java.util.Collections;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,15 +11,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
-import java.util.Collections;
-
+/** Basic test to start/stop webdriver, open home page */
 public class BaseTest {
     private String HOME_PAGE = "http://automationpractice.com";
 
     private WebDriver driver;
     private WebDriverWait wait;
 
+    /** Webdriver start and setup of browser options */
     @Before
     public void setUp() {
         // If you want to disable infobars please use this code
@@ -40,35 +38,35 @@ public class BaseTest {
         wait = new WebDriverWait(driver, 10);
     }
 
+    /** Quit webdriver */
     @After
     public void tearDrop() {
         driver.quit();
     }
 
+    /**
+     * Returns instance of webdriver
+     *
+     * @return driver
+     */
     public WebDriver getDriver() {
         return driver;
     }
 
+    /**
+     * Waits for given element to become visible
+     *
+     * @param element
+     */
     public void waitTillElementIsVisible(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void fillFieldById(String id, String value) {
-        driver.findElement(By.id(id)).sendKeys(value);
-    }
-
-    public void clickById(String id) {
-        driver.findElement(By.id(id)).click();
-    }
-
-    public void clickByXpath(String xpath) {
-        driver.findElement(By.xpath(xpath)).click();
-    }
-
-    public String getTextByXpath(String xpath) {
-        return driver.findElement(By.xpath(xpath)).getAttribute("innerHTML");
-    }
-
+    /**
+     * Opens homepage
+     *
+     * @return HomePage
+     */
     public HomePage goToHomePage() {
         driver.get(HOME_PAGE);
         return new HomePage(this);
