@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/** Abstract page with common methods */
 public abstract class AbstractPage {
     protected BaseTest testClass;
 
@@ -15,6 +16,9 @@ public abstract class AbstractPage {
 
     @FindBy(xpath = "//div[@id='page']")
     protected WebElement pageDiv;
+
+    @FindBy(xpath = "//a[contains(text(), 'Sign in')]")
+    protected WebElement signIn;
 
     @FindBy(xpath = "//a[@class='logout']")
     protected WebElement signOut;
@@ -28,6 +32,17 @@ public abstract class AbstractPage {
         this.testClass = testClass;
         PageFactory.initElements(testClass.getDriver(), this); // Initialize WebElements
         testClass.waitTillElementIsVisible(pageDiv);
+    }
+
+    /**
+     * Clicks Sign In button
+     *
+     * @return LoginPage
+     */
+    public LoginPage clickSignInButton() {
+        testClass.waitTillElementIsVisible(signIn);
+        signIn.click();
+        return new LoginPage(testClass);
     }
 
     /** Signs out */

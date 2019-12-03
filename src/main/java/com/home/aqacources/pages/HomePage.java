@@ -14,14 +14,4 @@ public class HomePage extends AbstractPage {
     public HomePage(BaseTest testClass) {
         super(testClass);
     }
-
-    /**
-     * Clicks Sign In button
-     *
-     * @return LoginPage
-     */
-    public LoginPage clickSignInButton() {
-        super.clickByXpath(SIGN_IN_BUTTON_XPATH);
-        return new LoginPage(testClass);
-    }
 }
