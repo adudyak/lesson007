@@ -1,21 +1,17 @@
 package com.home.aqacources.pages;
 
-import org.openqa.selenium.WebDriver;
+import com.home.aqacources.tests.BaseTest;
 
 public class HomePage extends AbstractPage {
     private String SIGN_IN_BUTTON_XPATH = "//a[contains(text(), 'Sign in')]";
 
-    public HomePage(WebDriver driver) {
-        super(driver);
+    public HomePage(BaseTest testClass) {
+        super(testClass);
     }
 
-    public void goToHomePage() {
-        driver.get("http://automationpractice.com/index.php");
-    }
-
-    public void clickSignInButton() {
-        waitForPageLoad();
-        clickByXpath(SIGN_IN_BUTTON_XPATH);
+    public LoginPage clickSignInButton() {
+        testClass.clickByXpath(SIGN_IN_BUTTON_XPATH);
+        return new LoginPage(testClass);
     }
 }
 
