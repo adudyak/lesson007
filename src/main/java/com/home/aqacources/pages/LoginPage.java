@@ -1,8 +1,11 @@
 package com.home.aqacources.pages;
 
 import com.home.aqacources.base.BaseTest;
+import com.home.aqacources.utils.YamlParser;
 import junit.framework.TestCase;
 import org.openqa.selenium.By;
+
+import java.io.IOException;
 
 /** Login page */
 public class LoginPage extends AbstractPage {
@@ -27,8 +30,12 @@ public class LoginPage extends AbstractPage {
      * @return MyAccountPage
      */
     public MyAccountPage login() {
-        super.fillFieldById(USERNAME_ID, USERNAME);
-        super.fillFieldById(PASSWORD_ID, PASSWORD);
+        try {
+        super.fillFieldById(USERNAME_ID, YamlParser.getYamlData().getEmail());
+        super.fillFieldById(PASSWORD_ID, YamlParser.getYamlData().getPassword());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.clickById(SIGN_IN_BUTTON_ID);
         return new MyAccountPage(testClass);
     }

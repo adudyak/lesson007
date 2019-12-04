@@ -93,6 +93,17 @@ public abstract class AbstractPage {
     }
 
     /**
+     * Returns innerHTML of element, found by id
+     *
+     * @param id
+     * @return String
+     */
+    public String getTextById(String id) {
+        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.id(id)));
+        return testClass.getDriver().findElement(By.id(id)).getAttribute("innerHTML");
+    }
+
+    /**
      * Returns amount of elements, found by XPath
      *
      * @param xpath
@@ -101,5 +112,13 @@ public abstract class AbstractPage {
     public int countElementsByXpath(String xpath) {
         testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
         return testClass.getDriver().findElements(By.xpath(xpath)).size();
+    }
+
+    /**
+     * Waits for element to be visible
+     * @param xpath
+     */
+    public void waitTillXpathElementIsVisible(String xpath) {
+        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
     }
 }

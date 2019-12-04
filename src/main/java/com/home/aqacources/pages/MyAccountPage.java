@@ -5,7 +5,7 @@ import org.junit.Assert;
 
 /** Main page after login */
 public class MyAccountPage extends AbstractPage {
-    private String FIRST_LAST_NAME = "FirstName lastName";
+    private String FIRST_LAST_NAME_EXPECTED = "FirstName lastName";
     private String FIRST_LAST_NAME_XPATH = "//a[@class='account']/span";
 
     /**
@@ -25,7 +25,7 @@ public class MyAccountPage extends AbstractPage {
     public MainCategoryPage verifyFirstLastName() {
         Assert.assertEquals(
                 "First Last name does not match expected one",
-                FIRST_LAST_NAME,
+                FIRST_LAST_NAME_EXPECTED,
                 super.getTextByXpath(FIRST_LAST_NAME_XPATH));
         return new MainCategoryPage(testClass);
     }
