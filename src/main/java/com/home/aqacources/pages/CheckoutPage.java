@@ -42,7 +42,7 @@ public class CheckoutPage extends AbstractPage {
      * @return
      */
     public int grabTotalPrice() {
-        return (int) Double.parseDouble(super.getTextById(TOTAL_PRICE).replace("$", "")) * 100;
+        return (int) Math.round(100 * Double.parseDouble(super.getTextById(TOTAL_PRICE).replace("$", "")));
     }
 
     /**
