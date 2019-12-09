@@ -25,13 +25,33 @@ public class TestOnlineShopTest extends BaseTest {
         HomePage homePage = openSite();
         LoginPage loginPage = homePage.clickSignInButton();
         loginPage.login();
-        MainCategoryPage mainCategoryPage = loginPage.goToTshirts();
-        ProductPage productPage = mainCategoryPage.click1stProduct();
+        loginPage.goToTshirts();
+        ProductPage productPage = loginPage.open1stProduct();
         productPage.verifyBreadcrumbs();
         productPage.clickAddToCart();
         CheckoutPage checkoutPage = productPage.clickProceedToCheckout();
         checkoutPage.verifyTotalPriceChange();
-        checkoutPage.deleteProduct();
+        checkoutPage.removeProduct();
         checkoutPage.verifyEmptyCart();
+    }
+
+    @Test
+    public void testActionsAndCookies() {
+        HomePage homePage = openSite();
+        LoginPage loginPage = homePage.clickSignInButton();
+        loginPage.login();
+        loginPage.mouseOverWomen();
+        loginPage.goToEveningDresses();
+        ProductPage productPage = loginPage.open1stProductNewWindow();
+        productPage.selectPinkColor();
+        productPage.selectLsize();
+        productPage.clickAddToCart();
+        productPage.clickContinueShopping();
+        productPage.mouseOverCart();
+        productPage.verifySizeAndColor();
+        productPage.removeProduct();
+        productPage.verifyCartIsEmpty();
+        productPage.closeWindow();
+        productPage.printCookies();
     }
 }

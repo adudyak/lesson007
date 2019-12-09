@@ -27,7 +27,7 @@ public class CheckoutPage extends AbstractPage {
     }
 
     /** Removes one product from cart by clicking on minus button */
-    public void deleteProduct() {
+    public void removeProduct() {
         super.clickByXpath(REMOVE_PRODUCT_BUTTON);
     }
 
@@ -48,7 +48,7 @@ public class CheckoutPage extends AbstractPage {
     public void verifyTotalPriceChange() {
         int initialPrice = grabTotalPrice();
         addOneProduct();
-        super.waitForIdElementToHaveText(
+        super.waitForElementToHaveTextById(
                 TOTAL_PRODUCTS_PRICE, "$" + (double) (initialPrice + initialPrice) / 100);
         int updatedPrice = grabTotalPrice();
         Assert.assertEquals(

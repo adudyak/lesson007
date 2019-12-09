@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
@@ -13,14 +14,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /** Basic test to start/stop webdriver, open home page */
 public class BaseTest {
-    // Webdriver + wait
+    // Webdriver + wait + actions
     private WebDriver driver;
     private WebDriverWait wait;
+    private Actions action;
 
     // Logger
     private Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
@@ -45,6 +48,8 @@ public class BaseTest {
         driver.manage().window().maximize();
 
         wait = new WebDriverWait(driver, 10);
+
+        action = new Actions(driver);
     }
 
     /**
@@ -68,6 +73,24 @@ public class BaseTest {
      */
     public WebDriver getDriver() {
         return driver;
+    }
+
+    /**
+     * Gets instance of Actions
+     *
+     * @return action
+     */
+    public Actions getAction() {
+        return action;
+    }
+
+    /**
+     * Gets instance of WebDriverWait
+     *
+     * @return wait
+     */
+    public WebDriverWait getWait() {
+        return wait;
     }
 
     /**
@@ -114,5 +137,33 @@ public class BaseTest {
      */
     public String getDateTime() {
         return new SimpleDateFormat("YYYY-MM-dd_HH-mm-ss").format(Calendar.getInstance().getTime());
+    }
+
+    /** Switches to new window */
+    public void switchToNewWindow() {
+        String actualWindow = getDriver().getWindowHandle();
+        Set<String> windows = getDriver().getWindowHandles();
+        String newWindow = null;
+        for (String window : windows) {
+            if (!window.equals(actualWindow)) {
+                newWindow = window;
+            }
+        }
+
+        getDriver().switchTo().window(newWindow);
+    }
+
+    /** Closes window and switches to other window */
+    public void closeWindowAndSwitchToOther() {
+        String actualWindow = getDriver().getWindowHandle();
+        Set<String> windows = getDriver().getWindowHandles();
+        String newWindow = null;
+        for (String window : windows) {
+            if (!window.equals(actualWindow)) {
+                newWindow = window;
+            }
+        }
+        getDriver().switchTo().window(actualWindow).close();
+        getDriver().switchTo().window(newWindow);
     }
 }
