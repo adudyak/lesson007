@@ -1,8 +1,11 @@
 package com.home.aqacources.base;
 
-
 import com.home.aqacources.pages.HomePage;
 import com.home.aqacources.utils.YamlParser;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Rule;
@@ -13,14 +16,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-
-/**
- * Basic test to start/stop webdriver, open home page
- */
+/** Basic test to start/stop webdriver, open home page */
 public class BaseTest {
     // Webdriver + wait
     private WebDriver driver;
@@ -30,12 +26,9 @@ public class BaseTest {
     private Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     // Rule
-    @Rule
-    public RunTestRules runTestRules = new RunTestRules(this);
+    @Rule public RunTestRules runTestRules = new RunTestRules(this);
 
-    /**
-     * Webdriver start and setup of browser options
-     */
+    /** Webdriver start and setup of browser options */
     public BaseTest() {
         // If you want to disable infobars please use this code
         ChromeOptions options = new ChromeOptions();
@@ -55,7 +48,7 @@ public class BaseTest {
     }
 
     /**
-     * Open site and get instance of HomePage
+     * Opens site and get instance of HomePage
      *
      * @return
      */
@@ -69,7 +62,7 @@ public class BaseTest {
     }
 
     /**
-     * Get instance of driver
+     * Gets instance of driver
      *
      * @return driver
      */
@@ -78,7 +71,7 @@ public class BaseTest {
     }
 
     /**
-     * Wait till element is visible
+     * Waits till element is visible
      *
      * @param element
      */
@@ -87,7 +80,17 @@ public class BaseTest {
     }
 
     /**
-     * Write down info message
+     * Waits till element has certain text
+     *
+     * @param element
+     * @param text
+     */
+    public void waitForElementToHaveText(WebElement element, String text) {
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
+    /**
+     * Writes down info message
      *
      * @param message
      */
@@ -96,7 +99,7 @@ public class BaseTest {
     }
 
     /**
-     * Write down error message
+     * Writes down error message
      *
      * @param error
      */
@@ -105,7 +108,7 @@ public class BaseTest {
     }
 
     /**
-     * Get date and time
+     * Gets date and time
      *
      * @return
      */

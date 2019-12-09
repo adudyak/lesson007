@@ -23,6 +23,12 @@ public abstract class AbstractPage {
     @FindBy(xpath = "//a[@class='logout']")
     protected WebElement signOut;
 
+    @FindBy(xpath = "//div/ul/li/a[@title='T-shirts']")
+    protected WebElement tShirts;
+
+    @FindBy(xpath = "//div/ul/li/a[@title='Dresses']")
+    protected WebElement dresses;
+
     /**
      * Abstract page receives BaseTest
      *
@@ -93,6 +99,17 @@ public abstract class AbstractPage {
     }
 
     /**
+     * Returns text from all element's children, found by xpath
+     *
+     * @param xpath
+     * @return
+     */
+    public String getTextFromChildElementsXpath(String xpath) {
+        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
+        return testClass.getDriver().findElement(By.xpath(xpath)).getText();
+    }
+
+    /**
      * Returns innerHTML of element, found by id
      *
      * @param id
@@ -116,9 +133,40 @@ public abstract class AbstractPage {
 
     /**
      * Waits for element to be visible
+     *
      * @param xpath
      */
     public void waitTillXpathElementIsVisible(String xpath) {
         testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
+    }
+
+    /**
+     * Waits till element has certain text
+     *
+     * @param id, text
+     * @param text
+     */
+    public void waitForIdElementToHaveText(String id, String text) {
+        testClass.waitForElementToHaveText(testClass.getDriver().findElement(By.id(id)), text);
+    }
+
+    /**
+     * Navigates to T-Shorts category
+     *
+     * @return MaonCategoryPage
+     */
+    public MainCategoryPage goToTshirts() {
+        tShirts.click();
+        return new MainCategoryPage(testClass);
+    }
+
+    /**
+     * Navigates to Dresses category
+     *
+     * @return MainCategoryPage
+     */
+    public MainCategoryPage goToDresses() {
+        dresses.click();
+        return new MainCategoryPage(testClass);
     }
 }

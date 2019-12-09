@@ -4,7 +4,6 @@ import com.home.aqacources.base.BaseTest;
 import com.home.aqacources.pages.*;
 import org.junit.Test;
 
-/** */
 public class TestOnlineShopTest extends BaseTest {
     @Test
     public void testProductsCounterTest() {
@@ -13,23 +12,21 @@ public class TestOnlineShopTest extends BaseTest {
         loginPage.verifyPage();
         MyAccountPage myAccountPage = loginPage.login();
         MainCategoryPage mainCategoryPage = myAccountPage.verifyFirstLastName();
-        SubCategoryPage subCategoryPage = mainCategoryPage.goToDresses();
-        subCategoryPage.clickSummerDresses();
+        mainCategoryPage.goToDresses();
+        SubCategoryPage subCategoryPage = mainCategoryPage.clickSummerDresses();
         subCategoryPage.verifyProductsOnPage();
-        // Selecting white color does not work, but single product counter is handled
-        //        subCategoryPage.selectWhiteColor();
-        //        subCategoryPage.verifyProductsOnPage();
+        subCategoryPage.selectWhiteColor();
+        subCategoryPage.verifyProductsOnPage();
         subCategoryPage.signOut();
     }
+
     @Test
-    public void testCartTest(){
+    public void testCartTest() {
         HomePage homePage = openSite();
         LoginPage loginPage = homePage.clickSignInButton();
-        MyAccountPage myAccountPage = loginPage.login();
-        MainCategoryPage mainCategoryPage = myAccountPage.verifyFirstLastName();
-        mainCategoryPage.goToTshirts();
+        loginPage.login();
+        MainCategoryPage mainCategoryPage = loginPage.goToTshirts();
         ProductPage productPage = mainCategoryPage.click1stProduct();
-        // Items below not verified well due to poor site behavior
         productPage.verifyBreadcrumbs();
         productPage.clickAddToCart();
         CheckoutPage checkoutPage = productPage.clickProceedToCheckout();

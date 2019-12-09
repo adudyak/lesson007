@@ -5,8 +5,6 @@ import org.junit.Assert;
 
 /** Sub-category page */
 public class SubCategoryPage extends AbstractPage {
-    private String SUMMER_DRESSES_XPATH =
-            "//ul[@class='tree dynamized']/li/a[contains(text(), 'Summer Dresses')]";
     private String PRODUCT_XPATH = "//h5[@itemprop='name']";
     private String PRODUCTS_COUNTER_TEXT = "//span[@class='heading-counter']";
     private String WHITE_LINK_XPATH = "//a[contains(text(),'White')]";
@@ -18,11 +16,6 @@ public class SubCategoryPage extends AbstractPage {
      */
     public SubCategoryPage(BaseTest testClass) {
         super(testClass);
-    }
-
-    /** Navigates to Summer Dresses */
-    public void clickSummerDresses() {
-        super.clickByXpath(SUMMER_DRESSES_XPATH);
     }
 
     /** Verifies amount of products in counter matches actual result */
