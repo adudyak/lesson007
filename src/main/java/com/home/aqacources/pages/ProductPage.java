@@ -7,24 +7,31 @@ import org.openqa.selenium.support.FindBy;
 
 /** Product page */
 public class ProductPage extends AbstractPage {
-    private String BREADCRUMBS = "//div[@class='breadcrumb clearfix']";
     private String BREADCRUMBS_EXPECTED = "> Women>Tops>T-shirts>Faded Short Sleeve T-shirts";
-    private String ADD_TO_CART_BUTTON = "//button[@name='Submit']";
-    private String PRODUCT_ADDED_ICON = "//h2/i[@class='icon-ok']";
-    private String PROCEED_TO_CHECKOUT_BUTTON = "//a[@title='Proceed to checkout']";
 
     /*
     Web elements with @FindBy annotation
      */
+    @FindBy(xpath = "//div[@class='breadcrumb clearfix']")
+    protected WebElement breadcrumbs;
+
+    @FindBy(xpath = "//button[@name='Submit']")
+    protected WebElement addToCartButton;
+
+    @FindBy(xpath = "//h2/i[@class='icon-ok']")
+    protected WebElement productIsAddedIcon;
+
+    @FindBy(xpath = "//a[@title='Proceed to checkout']")
+    protected WebElement proceedToCheckoutButton;
 
     @FindBy(id = "color_24")
-    protected WebElement pinkColor;
+    protected WebElement pinkColorButton;
 
     @FindBy(id = "uniform-group_1")
     protected WebElement sizeDropDown;
 
     @FindBy(xpath = "//option[@title='L']")
-    protected WebElement sizeL;
+    protected WebElement sizeLoption;
 
     @FindBy(xpath = "//span[@title='Continue shopping']")
     protected WebElement continueShopping;
@@ -40,49 +47,55 @@ public class ProductPage extends AbstractPage {
 
     /** Verifies breadcrumbs */
     public void verifyBreadcrumbs() {
+        testClass.log("Verifies breadcrumbs");
+        testClass.waitTillElementIsVisible(breadcrumbs);
         Assert.assertEquals(
                 "Breadcrumbs do not match expected ones",
                 BREADCRUMBS_EXPECTED,
-                super.getTextFromChildElementsByXpath(BREADCRUMBS));
+                breadcrumbs.getText());
     }
 
     /** Adds product to cart */
     public void clickAddToCart() {
-        super.clickByXpath(ADD_TO_CART_BUTTON);
-        super.waitTillElementIsVisibleByXpath(PRODUCT_ADDED_ICON);
+        testClass.log("Adds product to cart");
+        testClass.getAction().moveToElement(addToCartButton).perform();
+        testClass.waitTillElementIsVisible(addToCartButton);
+        addToCartButton.click();
+        testClass.waitTillElementIsVisible(productIsAddedIcon);
     }
 
     /**
      * Clicks Proceed to checkout button
      *
-     * @return
+     * @return CheckoutPage
      */
     public CheckoutPage clickProceedToCheckout() {
-        super.clickByXpath(PROCEED_TO_CHECKOUT_BUTTON);
+        testClass.log("Clicks Proceed to checkout button");
+        testClass.waitTillElementIsVisible(proceedToCheckoutButton);
+        proceedToCheckoutButton.click();
         return new CheckoutPage(testClass);
     }
 
-    /**
-     * Clicks Continue Shopping button
-     *
-     * @return
-     */
+    /** Clicks Continue Shopping button */
     public void clickContinueShopping() {
+        testClass.log("Clicks Continue Shopping button");
         testClass.waitTillElementIsVisible(continueShopping);
         continueShopping.click();
     }
 
     /** Selects pink color */
     public void selectPinkColor() {
-        testClass.waitTillElementIsVisible(pinkColor);
-        pinkColor.click();
+        testClass.log("Selects pink color");
+        testClass.waitTillElementIsVisible(pinkColorButton);
+        pinkColorButton.click();
     }
 
     /** Selects L size */
     public void selectLsize() {
+        testClass.log("Selects L size");
         testClass.waitTillElementIsVisible(sizeDropDown);
         sizeDropDown.click();
-        testClass.waitTillElementIsVisible(sizeL);
-        sizeL.click();
+        testClass.waitTillElementIsVisible(sizeLoption);
+        sizeLoption.click();
     }
 }

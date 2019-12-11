@@ -1,13 +1,25 @@
 package com.home.aqacources.pages;
 
 import com.home.aqacources.base.BaseTest;
+import java.util.List;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 
 /** Sub-category page */
 public class SubCategoryPage extends AbstractPage {
-    private String PRODUCT_XPATH = "//h5[@itemprop='name']";
-    private String PRODUCTS_COUNTER_TEXT = "//span[@class='heading-counter']";
-    private String WHITE_LINK_XPATH = "//a[contains(text(),'White')]";
+    /*
+    Web elements with @FindBy annotation
+    */
+    @FindBys({@FindBy(xpath = "//h5[@itemprop='name']")})
+    protected List<WebElement> productsHeaders;
+
+    @FindBy(xpath = "//span[@class='heading-counter']")
+    protected WebElement productsCounter;
+
+    @FindBy(xpath = "//a[contains(text(),'White')]")
+    protected WebElement whiteColorLink;
 
     /**
      * Constructor
@@ -18,22 +30,25 @@ public class SubCategoryPage extends AbstractPage {
         super(testClass);
     }
 
-    /** Verifies amount of products in counter matches actual result */
+    /** Verifies if amount of products in counter matches actual result */
     public void verifyProductsOnPage() {
-        if (super.countElementsByXpath(PRODUCT_XPATH) > 1) {
+        testClass.log("Verifies if amount of products in counter matches actual result");
+        testClass.waitTillElementIsVisible(productsHeaders);
+        if (productsHeaders.size() > 1) {
             Assert.assertEquals(
                     "Amount of products on the page does not match counter",
-                    "There are " + super.countElementsByXpath(PRODUCT_XPATH) + " products.",
-                    super.getTextByXpath(PRODUCTS_COUNTER_TEXT));
+                    "There are " + productsHeaders.size() + " products.",
+                    productsCounter.getAttribute("innerHTML"));
         } else
             Assert.assertEquals(
                     "Amount of product on the page does not match counter",
-                    "There is " + super.countElementsByXpath(PRODUCT_XPATH) + " product.",
-                    super.getTextByXpath(PRODUCTS_COUNTER_TEXT));
+                    "There is " + productsHeaders.size() + " product.",
+                    productsCounter.getAttribute("innerHTML"));
     }
 
     /** Selects white color to filter products */
     public void selectWhiteColor() {
-        super.clickByXpath(WHITE_LINK_XPATH);
+        testClass.log("Selects white color to filter products");
+        testClass.waitTillElementIsVisible(whiteColorLink);
     }
 }

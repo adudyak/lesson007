@@ -51,7 +51,7 @@ public class TestOnlineShopTest extends BaseTest {
         productPage.verifySizeAndColor();
         productPage.removeProduct();
         productPage.verifyCartIsEmpty();
-        productPage.closeWindow();
+        closeWindowAndSwitchToOther();
         productPage.printCookies();
     }
 }

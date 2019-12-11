@@ -1,11 +1,16 @@
 package com.home.aqacources.pages;
 
 import com.home.aqacources.base.BaseTest;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /** Main category page */
 public class MainCategoryPage extends AbstractPage {
-    private String SUMMER_DRESSES_XPATH =
-            "//ul[@class='tree dynamized']/li/a[contains(text(), 'Summer Dresses')]";
+    /*
+    Web elements with @FindBy annotation
+     */
+    @FindBy(xpath = "//ul[@class='tree dynamized']/li/a[contains(text(), 'Summer Dresses')]")
+    protected WebElement summerDressesLink;
 
     /**
      * Constructor
@@ -22,7 +27,9 @@ public class MainCategoryPage extends AbstractPage {
      * @return SubCategoryPage
      */
     public SubCategoryPage clickSummerDresses() {
-        super.clickByXpath(SUMMER_DRESSES_XPATH);
+        testClass.log("Navigates to Summer Dresses");
+        testClass.waitTillElementIsVisible(summerDressesLink);
+        summerDressesLink.click();
         return new SubCategoryPage(testClass);
     }
 }

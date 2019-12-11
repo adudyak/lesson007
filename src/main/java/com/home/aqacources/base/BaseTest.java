@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,9 +56,10 @@ public class BaseTest {
     /**
      * Opens site and get instance of HomePage
      *
-     * @return
+     * @return HomePage
      */
     public HomePage openSite() {
+        log("Opens site");
         try {
             driver.get(YamlParser.getYamlData().getUrl());
         } catch (IOException e) {
@@ -103,12 +105,22 @@ public class BaseTest {
     }
 
     /**
+     * Waits till 1st element from list of elements is visible
+     *
+     * @param list
+     */
+    public void waitTillElementIsVisible(List<WebElement> list) {
+        wait.until(ExpectedConditions.visibilityOf(list.get(0)));
+    }
+
+    /**
      * Waits till element has certain text
      *
      * @param element
      * @param text
      */
     public void waitForElementToHaveText(WebElement element, String text) {
+        waitTillElementIsVisible(element);
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
@@ -133,7 +145,7 @@ public class BaseTest {
     /**
      * Gets date and time
      *
-     * @return
+     * @return SimpleDateFormat
      */
     public String getDateTime() {
         return new SimpleDateFormat("YYYY-MM-dd_HH-mm-ss").format(Calendar.getInstance().getTime());
@@ -141,6 +153,7 @@ public class BaseTest {
 
     /** Switches to new window */
     public void switchToNewWindow() {
+        log("Switches to new window");
         String actualWindow = getDriver().getWindowHandle();
         Set<String> windows = getDriver().getWindowHandles();
         String newWindow = null;
@@ -155,6 +168,7 @@ public class BaseTest {
 
     /** Closes window and switches to other window */
     public void closeWindowAndSwitchToOther() {
+        log("Closes window and switches to other window");
         String actualWindow = getDriver().getWindowHandle();
         Set<String> windows = getDriver().getWindowHandles();
         String newWindow = null;

@@ -4,7 +4,6 @@ import com.home.aqacources.base.BaseTest;
 
 /** Main page of website */
 public class HomePage extends AbstractPage {
-    private String SIGN_IN_BUTTON_XPATH = "//a[contains(text(), 'Sign in')]";
 
     /**
      * Constructor

@@ -3,7 +3,6 @@ package com.home.aqacources.pages;
 import com.home.aqacources.base.BaseTest;
 import java.util.Set;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -14,48 +13,47 @@ import org.openqa.selenium.support.PageFactory;
 public abstract class AbstractPage {
     protected BaseTest testClass;
 
+    private String EXPECTED_SIZE_COLOR = "Pink, L";
+    private String EXPECTED_EMPTY_CART_TEXT = "(empty)";
+
     /*
     Web elements with @FindBy annotation
-     */
-
+    */
     @FindBy(xpath = "//div[@id='page']")
-    protected WebElement pageDiv;
+    protected WebElement mainPageDiv;
 
     @FindBy(xpath = "//a[contains(text(), 'Sign in')]")
-    protected WebElement signIn;
+    protected WebElement signInLink;
 
     @FindBy(xpath = "//a[@class='logout']")
-    protected WebElement signOut;
+    protected WebElement signOutLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='T-shirts']")
-    protected WebElement tShirts;
+    protected WebElement tShirtsLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='Dresses']")
-    protected WebElement dresses;
+    protected WebElement dressesLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='Women']")
-    protected WebElement women;
+    protected WebElement womenLink;
 
     @FindBy(xpath = "//div/ul/li/ul/li/ul/li/a[@title='Evening Dresses']")
-    protected WebElement eveningDresses;
+    protected WebElement eveningDressesLink;
 
     @FindBy(xpath = "(//h5[@itemprop='name']/a)[1]")
-    protected WebElement firstProduct;
+    protected WebElement firstProductLink;
 
     @FindBy(xpath = "//a[@title='View my shopping cart']")
-    protected WebElement cart;
+    protected WebElement cartLink;
 
     @FindBy(xpath = "//div[@class='product-atributes']/a")
-    protected WebElement productAttributes;
+    protected WebElement productAttributesLink;
 
     @FindBy(xpath = "//span[@class='remove_link']/a")
     protected WebElement removeProductLink;
 
     @FindBy(xpath = "//span[@class='ajax_cart_no_product']")
-    protected WebElement emptyCart;
-
-    private String EXPECTED_SIZE_COLOR = "Pink, L";
-    private String EXPECTED_EMPTY_CART_TEXT = "(empty)";
+    protected WebElement emptyCartMessage;
 
     /**
      * Abstract page receives BaseTest
@@ -65,7 +63,7 @@ public abstract class AbstractPage {
     public AbstractPage(BaseTest testClass) {
         this.testClass = testClass;
         PageFactory.initElements(testClass.getDriver(), this); // Initialize WebElements
-        testClass.waitTillElementIsVisible(pageDiv);
+        testClass.waitTillElementIsVisible(mainPageDiv);
     }
 
     /**
@@ -74,133 +72,53 @@ public abstract class AbstractPage {
      * @return LoginPage
      */
     public LoginPage clickSignInButton() {
-        testClass.waitTillElementIsVisible(signIn);
-        signIn.click();
+        testClass.log("Clicks Sign In button");
+        testClass.waitTillElementIsVisible(signInLink);
+        signInLink.click();
         return new LoginPage(testClass);
     }
 
     /** Signs out */
     public void signOut() {
-        signOut.click();
+        testClass.log("Signs out");
+        testClass.waitTillElementIsVisible(signOutLink);
+        signOutLink.click();
     }
 
     /**
-     * Fills field, found by id, with value
+     * Clicks 1st product on page
      *
-     * @param id
-     * @param value
+     * @return ProductPage
      */
-    public void fillFieldById(String id, String value) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.id(id)));
-        testClass.getDriver().findElement(By.id(id)).sendKeys(value);
-    }
-
-    /**
-     * Clicks element, found by id
-     *
-     * @param id
-     */
-    public void clickById(String id) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.id(id)));
-        testClass.getDriver().findElement(By.id(id)).click();
-    }
-
-    /**
-     * Clicks element, found by XPath
-     *
-     * @param xpath
-     */
-    public void clickByXpath(String xpath) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
-        testClass.getDriver().findElement(By.xpath(xpath)).click();
-    }
-
-    /**
-     * Returns innerHTML of element, found by XPath
-     *
-     * @param xpath
-     * @return String
-     */
-    public String getTextByXpath(String xpath) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
-        return testClass.getDriver().findElement(By.xpath(xpath)).getAttribute("innerHTML");
-    }
-
-    /**
-     * Returns text from all element's children, found by xpath
-     *
-     * @param xpath
-     * @return
-     */
-    public String getTextFromChildElementsByXpath(String xpath) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
-        return testClass.getDriver().findElement(By.xpath(xpath)).getText();
-    }
-
-    /**
-     * Returns innerHTML of element, found by id
-     *
-     * @param id
-     * @return String
-     */
-    public String getTextById(String id) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.id(id)));
-        return testClass.getDriver().findElement(By.id(id)).getAttribute("innerHTML");
-    }
-
-    /**
-     * Returns amount of elements, found by XPath
-     *
-     * @param xpath
-     * @return int
-     */
-    public int countElementsByXpath(String xpath) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
-        return testClass.getDriver().findElements(By.xpath(xpath)).size();
-    }
-
-    /**
-     * Waits for element to be visible
-     *
-     * @param xpath
-     */
-    public void waitTillElementIsVisibleByXpath(String xpath) {
-        testClass.waitTillElementIsVisible(testClass.getDriver().findElement(By.xpath(xpath)));
-    }
-
-    /**
-     * Waits till element has certain text
-     *
-     * @param id, text
-     * @param text
-     */
-    public void waitForElementToHaveTextById(String id, String text) {
-        testClass.waitForElementToHaveText(testClass.getDriver().findElement(By.id(id)), text);
-    }
-
-    /** Clicks 1st product on page */
     public ProductPage open1stProduct() {
-        testClass.waitTillElementIsVisible(firstProduct);
-        firstProduct.click();
+        testClass.log("Clicks 1st product on page");
+        testClass.waitTillElementIsVisible(firstProductLink);
+        firstProductLink.click();
         return new ProductPage(testClass);
     }
 
-    /** Opens 1st product in new window */
+    /**
+     * Opens 1st product in new window
+     *
+     * @return ProductPage
+     */
     public ProductPage open1stProductNewWindow() {
-        testClass.waitTillElementIsVisible(firstProduct);
-        firstProduct.sendKeys(Keys.chord(Keys.CONTROL, Keys.RETURN));
+        testClass.log("Opens 1st product in new window");
+        testClass.waitTillElementIsVisible(firstProductLink);
+        firstProductLink.sendKeys(Keys.chord(Keys.CONTROL, Keys.RETURN));
         testClass.switchToNewWindow();
         return new ProductPage(testClass);
     }
 
     /**
-     * Navigates to T-Shorts category
+     * Navigates to T-Shirts category
      *
-     * @return MaonCategoryPage
+     * @return MainCategoryPage
      */
     public MainCategoryPage goToTshirts() {
-        testClass.waitTillElementIsVisible(tShirts);
-        tShirts.click();
+        testClass.log("Navigates to T-Shirts category");
+        testClass.waitTillElementIsVisible(tShirtsLink);
+        tShirtsLink.click();
         return new MainCategoryPage(testClass);
     }
 
@@ -210,61 +128,68 @@ public abstract class AbstractPage {
      * @return MainCategoryPage
      */
     public MainCategoryPage goToDresses() {
-        testClass.waitTillElementIsVisible(dresses);
-        dresses.click();
+        testClass.log("Navigates to Dresses category");
+        testClass.waitTillElementIsVisible(dressesLink);
+        dressesLink.click();
         return new MainCategoryPage(testClass);
     }
 
     /** Moves mouse over Women category */
     public void mouseOverWomen() {
-        testClass.waitTillElementIsVisible(women);
-        testClass.getAction().moveToElement(women).perform();
+        testClass.log("Moves mouse over Women category");
+        testClass.waitTillElementIsVisible(womenLink);
+        testClass.getAction().moveToElement(womenLink).perform();
     }
 
-    /** Navigates to Evening Dresses category */
+    /**
+     * Navigates to Evening Dresses category
+     *
+     * @return SubCategoryPage
+     */
     public SubCategoryPage goToEveningDresses() {
-        testClass.waitTillElementIsVisible(eveningDresses);
-        eveningDresses.click();
+        testClass.log("Navigates to Evening Dresses category");
+        testClass.waitTillElementIsVisible(eveningDressesLink);
+        eveningDressesLink.click();
         return new SubCategoryPage(testClass);
     }
 
     /** Moves mouse over Cart */
     public void mouseOverCart() {
-        testClass.waitTillElementIsVisible(cart);
-        testClass.getAction().moveToElement(cart).perform();
+        testClass.log("Moves mouse over Cart");
+        testClass.waitTillElementIsVisible(cartLink);
+        testClass.getAction().moveToElement(cartLink).perform();
     }
 
     /** Verifies correct size and color are in cart */
     public void verifySizeAndColor() {
-        testClass.waitTillElementIsVisible(productAttributes);
+        testClass.log("Verifies correct size and color are in cart");
+        testClass.waitTillElementIsVisible(productAttributesLink);
         Assert.assertEquals(
                 "Size and/or color do not match expected one(s)",
                 EXPECTED_SIZE_COLOR,
-                productAttributes.getAttribute("innerHTML"));
+                productAttributesLink.getAttribute("innerHTML"));
     }
 
     /** Removes product from cart */
     public void removeProduct() {
+        testClass.log("Removes product from cart");
         testClass.waitTillElementIsVisible(removeProductLink);
         removeProductLink.click();
     }
 
     /** Verifies cart is empty */
     public void verifyCartIsEmpty() {
-        testClass.waitTillElementIsVisible(emptyCart);
+        testClass.log("Verifies cart is empty");
+        testClass.waitTillElementIsVisible(emptyCartMessage);
         Assert.assertEquals(
                 "Empty cart text does not match expected one",
                 EXPECTED_EMPTY_CART_TEXT,
-                emptyCart.getAttribute("innerHTML"));
-    }
-
-    /** Closes active window */
-    public void closeWindow() {
-        testClass.closeWindowAndSwitchToOther();
+                emptyCartMessage.getAttribute("innerHTML"));
     }
 
     /** Prints cookies */
     public void printCookies() {
+        testClass.log("Prints cookies");
         Set<Cookie> cookies = testClass.getDriver().manage().getCookies();
         System.out.println("Cookies: " + cookies.size());
         System.out.println(cookies.toString());
