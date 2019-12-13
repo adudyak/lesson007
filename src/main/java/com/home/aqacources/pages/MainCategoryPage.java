@@ -10,7 +10,7 @@ public class MainCategoryPage extends AbstractPage {
     Web elements with @FindBy annotation
      */
     @FindBy(xpath = "//ul[@class='tree dynamized']/li/a[contains(text(), 'Summer Dresses')]")
-    protected WebElement summerDressesLink;
+    private WebElement summerDressesLink;
 
     /**
      * Constructor

@@ -27,7 +27,7 @@ public class TestOnlineShopTest extends BaseTest {
         loginPage.login();
         loginPage.goToTshirts();
         ProductPage productPage = loginPage.open1stProduct();
-        productPage.verifyBreadcrumbs();
+        productPage.verifyProductBreadcrumbs();
         productPage.clickAddToCart();
         CheckoutPage checkoutPage = productPage.clickProceedToCheckout();
         checkoutPage.verifyTotalPriceChange();

@@ -13,7 +13,7 @@ public class MyAccountPage extends AbstractPage {
     Web elements with @FindBy annotation
     */
     @FindBy(xpath = "//a[@class='account']/span")
-    protected WebElement firstLastNamesText;
+    private WebElement firstLastNamesText;
 
     private String FIRST_LAST_NAME_XPATH = "//a[@class='account']/span";
 

@@ -12,13 +12,13 @@ public class LoginPage extends AbstractPage {
     Web elements with @FindBy annotation
      */
     @FindBy(id = "email")
-    protected WebElement emailInput;
+    private WebElement emailInput;
 
     @FindBy(id = "passwd")
-    protected WebElement passwordInput;
+    private WebElement passwordInput;
 
     @FindBy(id = "SubmitLogin")
-    protected WebElement signInButton;
+    private WebElement signInButton;
 
     /**
      * Constructor

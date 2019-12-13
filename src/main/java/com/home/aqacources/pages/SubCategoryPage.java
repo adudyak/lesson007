@@ -13,13 +13,13 @@ public class SubCategoryPage extends AbstractPage {
     Web elements with @FindBy annotation
     */
     @FindBys({@FindBy(xpath = "//h5[@itemprop='name']")})
-    protected List<WebElement> productsHeaders;
+    private List<WebElement> productsHeaders;
 
     @FindBy(xpath = "//span[@class='heading-counter']")
-    protected WebElement productsCounter;
+    private WebElement productsCounter;
 
     @FindBy(xpath = "//a[contains(text(),'White')]")
-    protected WebElement whiteColorLink;
+    private WebElement whiteColorLink;
 
     /**
      * Constructor

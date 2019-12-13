@@ -20,40 +20,40 @@ public abstract class AbstractPage {
     Web elements with @FindBy annotation
     */
     @FindBy(xpath = "//div[@id='page']")
-    protected WebElement mainPageDiv;
+    private WebElement mainPageDiv;
 
     @FindBy(xpath = "//a[contains(text(), 'Sign in')]")
-    protected WebElement signInLink;
+    private WebElement signInLink;
 
     @FindBy(xpath = "//a[@class='logout']")
-    protected WebElement signOutLink;
+    private WebElement signOutLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='T-shirts']")
-    protected WebElement tShirtsLink;
+    private WebElement tShirtsLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='Dresses']")
-    protected WebElement dressesLink;
+    private WebElement dressesLink;
 
     @FindBy(xpath = "//div/ul/li/a[@title='Women']")
-    protected WebElement womenLink;
+    private WebElement womenLink;
 
     @FindBy(xpath = "//div/ul/li/ul/li/ul/li/a[@title='Evening Dresses']")
-    protected WebElement eveningDressesLink;
+    private WebElement eveningDressesLink;
 
     @FindBy(xpath = "(//h5[@itemprop='name']/a)[1]")
-    protected WebElement firstProductLink;
+    private WebElement firstProductLink;
 
     @FindBy(xpath = "//a[@title='View my shopping cart']")
-    protected WebElement cartLink;
+    private WebElement cartLink;
 
     @FindBy(xpath = "//div[@class='product-atributes']/a")
-    protected WebElement productAttributesLink;
+    private WebElement productAttributesLink;
 
     @FindBy(xpath = "//span[@class='remove_link']/a")
-    protected WebElement removeProductLink;
+    private WebElement removeProductLink;
 
     @FindBy(xpath = "//span[@class='ajax_cart_no_product']")
-    protected WebElement emptyCartMessage;
+    private WebElement emptyCartMessage;
 
     /**
      * Abstract page receives BaseTest
@@ -193,5 +193,19 @@ public abstract class AbstractPage {
         Set<Cookie> cookies = testClass.getDriver().manage().getCookies();
         System.out.println("Cookies: " + cookies.size());
         System.out.println(cookies.toString());
+    }
+
+    /**
+     * Compares breadcrumbs from element with given string
+     *
+     * @param element
+     * @param breadcrumbs
+     */
+    public void verifyBreadcrumbs(WebElement element, String breadcrumbs) {
+        testClass.waitTillElementIsVisible(element);
+        Assert.assertEquals(
+                "Breadcrumbs do not match expected ones",
+                breadcrumbs,
+                element.getText());
     }
 }
