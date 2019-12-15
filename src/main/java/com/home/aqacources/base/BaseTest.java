@@ -87,15 +87,6 @@ public class BaseTest {
     }
 
     /**
-     * Gets instance of WebDriverWait
-     *
-     * @return wait
-     */
-    public WebDriverWait getWait() {
-        return wait;
-    }
-
-    /**
      * Waits till element is visible
      *
      * @param element
@@ -179,5 +170,11 @@ public class BaseTest {
         }
         getDriver().switchTo().window(actualWindow).close();
         getDriver().switchTo().window(newWindow);
+    }
+
+    /** Quits WebDriver */
+    public void quitWebDriver() {
+        getDriver().close();
+        getDriver().quit();
     }
 }

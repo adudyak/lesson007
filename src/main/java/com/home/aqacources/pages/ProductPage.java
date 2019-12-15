@@ -1,13 +1,10 @@
 package com.home.aqacources.pages;
 
 import com.home.aqacources.base.BaseTest;
-import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-/**
- * Product page
- */
+/** Product page */
 public class ProductPage extends AbstractPage {
     private String BREADCRUMBS_EXPECTED = "> Women>Tops>T-shirts>Faded Short Sleeve T-shirts";
 
@@ -47,17 +44,13 @@ public class ProductPage extends AbstractPage {
         super(testClass);
     }
 
-    /**
-     * Verifies breadcrumbs
-     */
+    /** Verifies breadcrumbs */
     public void verifyProductBreadcrumbs() {
         testClass.log("Verifies breadcrumbs");
         verifyBreadcrumbs(breadcrumbs, BREADCRUMBS_EXPECTED);
     }
 
-    /**
-     * Adds product to cart
-     */
+    /** Adds product to cart */
     public void clickAddToCart() {
         testClass.log("Adds product to cart");
         testClass.getAction().moveToElement(addToCartButton).perform();
@@ -78,27 +71,21 @@ public class ProductPage extends AbstractPage {
         return new CheckoutPage(testClass);
     }
 
-    /**
-     * Clicks Continue Shopping button
-     */
+    /** Clicks Continue Shopping button */
     public void clickContinueShopping() {
         testClass.log("Clicks Continue Shopping button");
         testClass.waitTillElementIsVisible(continueShopping);
         continueShopping.click();
     }
 
-    /**
-     * Selects pink color
-     */
+    /** Selects pink color */
     public void selectPinkColor() {
         testClass.log("Selects pink color");
         testClass.waitTillElementIsVisible(pinkColorButton);
         pinkColorButton.click();
     }
 
-    /**
-     * Selects L size
-     */
+    /** Selects L size */
     public void selectLsize() {
         testClass.log("Selects L size");
         testClass.waitTillElementIsVisible(sizeDropDown);

@@ -204,8 +204,6 @@ public abstract class AbstractPage {
     public void verifyBreadcrumbs(WebElement element, String breadcrumbs) {
         testClass.waitTillElementIsVisible(element);
         Assert.assertEquals(
-                "Breadcrumbs do not match expected ones",
-                breadcrumbs,
-                element.getText());
+                "Breadcrumbs do not match expected ones", breadcrumbs, element.getText());
     }
 }

@@ -5,9 +5,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-/**
- * Checkout page
- */
+/** Checkout page */
 public class CheckoutPage extends AbstractPage {
     private String EXPECTED_EMPTY_CART_MESSAGE = "Your shopping cart is empty.";
 
@@ -35,17 +33,13 @@ public class CheckoutPage extends AbstractPage {
         super(testClass);
     }
 
-    /**
-     * Adds one product to cart by clicking on plus button
-     */
+    /** Adds one product to cart by clicking on plus button */
     private void addOneProduct() {
         testClass.waitTillElementIsVisible(addProductButton);
         addProductButton.click();
     }
 
-    /**
-     * Removes one product from cart by clicking on minus button
-     */
+    /** Removes one product from cart by clicking on minus button */
     public void removeProduct() {
         testClass.log("Removes one product from cart by clicking on minus button");
         testClass.waitTillElementIsVisible(removeProductButton);
@@ -63,14 +57,12 @@ public class CheckoutPage extends AbstractPage {
                 Math.round(
                         100
                                 * Double.parseDouble(
-                                totalProductsPrice
-                                        .getAttribute("innerHTML")
-                                        .replace("$", "")));
+                                        totalProductsPrice
+                                                .getAttribute("innerHTML")
+                                                .replace("$", "")));
     }
 
-    /**
-     * Verify total prices changes after adding one more product
-     */
+    /** Verify total prices changes after adding one more product */
     public void verifyTotalPriceChange() {
         testClass.log("Verify total prices changes after adding one more product");
         int initialPrice = grabTotalPrice();
@@ -82,9 +74,7 @@ public class CheckoutPage extends AbstractPage {
                 "Price does not match expected one", initialPrice + initialPrice, updatedPrice);
     }
 
-    /**
-     * Verifies page for empty cart message
-     */
+    /** Verifies page for empty cart message */
     public void verifyEmptyCart() {
         testClass.log("Verifies page for empty cart message");
         testClass.waitTillElementIsVisible(emptyCartMessage);
