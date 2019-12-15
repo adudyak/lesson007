@@ -33,16 +33,27 @@ public class TestOnlineShopTest extends BaseTest {
 
     @Test
     public void testCartTest() {
+        // Open home page
         HomePage homePage = openSite();
+        // Click Sign In button
         LoginPage loginPage = homePage.clickSignInButton();
+        // Login to store
         loginPage.login();
+        // Navigate to T-Shirts category
         loginPage.goToTshirts();
+        // Open 1st product on page
         ProductPage productPage = loginPage.open1stProduct();
+        // Verify breadcrumbs
         productPage.verifyProductBreadcrumbs();
+        // Click Add to Cart
         productPage.clickAddToCart();
+        // Click Proceed to Checkout
         CheckoutPage checkoutPage = productPage.clickProceedToCheckout();
+        // Verify Total Prices changes, once one more product is added
         checkoutPage.verifyTotalPriceChange();
+        // Remove product form cart
         checkoutPage.removeProduct();
+        // Verify Cart is empty
         checkoutPage.verifyEmptyCart();
     }
 
